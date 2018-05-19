@@ -1,0 +1,4 @@
+# service for getting the environment description
+
+---
+ros_rl/EnvDescMsg envDesc
