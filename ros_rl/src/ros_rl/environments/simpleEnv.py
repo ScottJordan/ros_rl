@@ -7,8 +7,8 @@ import argparse
 import numpy as np
 import rospy
 
-from ros_rl.src.ros_rl.environments.environment import RosEnv, EnvDesc
-from ros_rl.src.ros_rl.utils.thing import ThingDesc, ThingfromDesc
+from ros_rl.environments.environment import RosEnv, EnvDesc
+from ros_rl.utils.thing import ThingDesc, ThingfromDesc
 
 
 def getEnvConfig():

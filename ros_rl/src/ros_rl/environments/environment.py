@@ -4,11 +4,12 @@ from ros_rl.msg import EnvAct, EnvObs, EnvDescMsg
 from ros_rl.srv import GetEnvDesc, GetEnvDescResponse
 from std_srvs.srv import Empty, EmptyResponse
 
-from ros_rl.src.ros_rl.utils.thing import ThingDesc, ThingfromDesc, ThingDescfromMsg, ThingfromMsg
+from ros_rl.utils.thing import ThingDesc, ThingfromDesc, ThingDescfromMsg, ThingfromMsg
 
 INACTIVE = 0
 ACTIVE = 1
 FINISHED = 2
+state_map = {INACTIVE:'INACTIVE', ACTIVE:'ACTIVE', FINISHED:'FINISHED'}
 
 class EnvDesc(object):
     def __init__(self):
@@ -175,11 +176,13 @@ class RosEnv(object):
         raise NotImplementedError
 
     def run(self):
+        # print('state {0}\t start {1}\t reset {2}\t reset_flag {3}\t action {4}'.format(state_map[self.state], self.start_flag, self.is_reset, self.reset_flag, self.new_action))
         if self.state == INACTIVE:
             if self.start_flag:
                 if self.is_reset:
                     self.start_flag = False
                     self.state = ACTIVE
+
                 else:
                     self.reset_flag = True
             if self.reset_flag:
@@ -187,6 +190,7 @@ class RosEnv(object):
                 self.reset_flag = False
 
         elif self.state == ACTIVE:
+            self.is_reset = False
             self.compute_obs()
             self.inTerminalState()
             self.compute_reward()
@@ -205,5 +209,3 @@ class RosEnv(object):
             print('unknown state')
             self.stop_controllers()
             self.state = INACTIVE
-
-

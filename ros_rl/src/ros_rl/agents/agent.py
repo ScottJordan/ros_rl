@@ -7,8 +7,8 @@ from ros_rl.srv import GetEnvDesc, GetEnvDescRequest
 from rospy.exceptions import ROSException, ROSInterruptException
 from std_srvs.srv import Empty, EmptyRequest
 
-from ros_rl.src.ros_rl.environments.environment import EnvDescfromMsg
-from ros_rl.src.ros_rl.utils.thing import Thing, ThingfromMsg
+from ros_rl.environments.environment import EnvDescfromMsg
+from ros_rl.utils.thing import Thing, ThingfromMsg
 
 
 class RosAgent(object):
@@ -99,8 +99,10 @@ class RosAgent(object):
         envAct.act = self.act.toMsg()
         self.act_pub.publish(envAct)
 
-    def run(self):
-        if self.episode < self.envDesc.suggestedMaxEps:
+    def run(self, max_eps=None):
+        if not max_eps:
+            max_eps = self.envDesc.suggestedMaxEps
+        if self.episode < max_eps:
             if not self.env_active:
                 self.reward_hist.append([])
                 self.send_start()
@@ -121,10 +123,10 @@ class RosAgent(object):
                         self.returns.append(ret)
                         self.agent.new_episode()
                         self.first_step = True
-                        print("episode: {0:d} {1:.3f}".format(self.episode, ret), self.cur_obs.cont, len(self.reward_hist[-1]))
+                        print("episode: {0:d} {1:.3f}".format(self.episode, ret), len(self.reward_hist[-1]))
                     else:
                         act = self.agent.get_action(self.cur_obs)
-                        self.act = self.constrain_actions(act)
+                        self.act = act  # self.constrain_actions(act)
                         self.publish_action()
             return False, None
         else:

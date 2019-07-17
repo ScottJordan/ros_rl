@@ -46,14 +46,10 @@
     <depend>message_generation</depend>
     <depend>actionlib</depend>
     <depend>geometry_msgs</depend>
-    <depend>kdl_parser</depend>
-    <depend>perception_msgs</depend>
     <depend>roscpp</depend>
     <depend>rospy</depend>
     <depend>sensor_msgs</depend>
     <depend>std_msgs</depend>
-    <depend>tf</depend>
-    <!-- <depend>ubot_control</depend> -->
 
     <!-- The export tag contains other, unspecified, tags -->
     <export>

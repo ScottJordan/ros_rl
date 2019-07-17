@@ -6,8 +6,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 import rospy
 
-from ros_rl.src.ros_rl.agents.agent import RosAgent
-from ros_rl.src.ros_rl.utils.thing import ThingfromDesc
+from ros_rl.agents.agent import RosAgent
+from ros_rl.utils.thing import ThingfromDesc
 
 class RandomAgent(object):
     def __init__(self, envDesc):

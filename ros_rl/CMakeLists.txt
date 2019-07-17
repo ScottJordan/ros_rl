@@ -9,14 +9,11 @@ project(ros_rl)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED
     actionlib
-    geometry_msgs
     roscpp
     rospy
     sensor_msgs
     std_msgs
     tf
-    perception_msgs
-    nav_msgs
 )
 
 ## System dependencies are found with CMake's conventions
@@ -80,7 +77,6 @@ generate_messages(
     actionlib_msgs
     geometry_msgs
     sensor_msgs
-    nav_msgs
 )
 
 ################################################
@@ -113,9 +109,9 @@ generate_messages(
 ## CATKIN_DEPENDS: catkin_packages dependent projects also need
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
-    INCLUDE_DIRS include
+#   INCLUDE_DIRS include
 #   LIBRARIES peg_in_hole
-    CATKIN_DEPENDS actionlib geometry_msgs roscpp rospy sensor_msgs std_msgs nav_msgs
+    CATKIN_DEPENDS actionlib geometry_msgs roscpp rospy sensor_msgs std_msgs
 #  DEPENDS system_lib
 )
 
@@ -126,7 +122,7 @@ catkin_package(
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
 include_directories(
-    include
+#   include
     ${catkin_INCLUDE_DIRS}
 )
 ## Declare a C++ library
